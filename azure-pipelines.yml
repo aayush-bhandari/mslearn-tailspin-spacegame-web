@@ -56,5 +56,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
-  artifactName: 'BuildArtifacts'
+  inputs:
+    artifactName: 'BuildArtifacts'
   condition: succeeded()
