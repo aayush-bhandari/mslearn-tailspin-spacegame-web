@@ -1,6 +1,7 @@
 parameters:
   contents: "**"
   artifactName: ""
+  flattenFolders: false
 
 steps:
   - task: CopyFiles@2
@@ -8,6 +9,7 @@ steps:
       contents: ${{ parameters.contents }}
       targetFolder: $(Build.ArtifactStagingDirectory)
       cleanTargetFolder: true
+      flattenFolders: ${{ flattenFolders }}
 
   - task: PublishBuildArtifacts@1
     inputs:
