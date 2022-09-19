@@ -27,9 +27,13 @@ steps:
 - task: gulp@1
   displayName: 'Run gulp tasks'
 
-- script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
+- script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber) $(Build.ArtifactStagingDirectory) $(Build.SourcesDirectory)" > buildinfo.txt'
   displayName: 'Write build info'
   workingDirectory: Tailspin.SpaceGame.Web/wwwroot
+
+- script: 'echo "Hello World" > hello.txt'
+  displayName: 'Write build info'
+  workingDirectory: $(Build.ArtifactStagingDirectory)/wwwroot
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
@@ -56,5 +60,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
   inputs:
-    artifactName: 'BuildArtifacts'
+    artifactName: 'TopFolder'
   condition: succeeded()
