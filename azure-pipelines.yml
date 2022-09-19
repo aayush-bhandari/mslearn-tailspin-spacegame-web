@@ -80,7 +80,7 @@ steps:
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'FinalFolder'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/*.txt'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
