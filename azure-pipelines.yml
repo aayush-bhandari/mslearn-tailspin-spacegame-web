@@ -51,6 +51,7 @@ steps:
     projects: '**/*.csproj'
     publishWebProjects: false
     arguments: '--no-build --configuration Release'
+    artifactName: 'BuildArtifacts'
     outputDir: '$(Build.ArtifactStagingDirectory)/NewFolder'
     zipAfterPublish: true
 
