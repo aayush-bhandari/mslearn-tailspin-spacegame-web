@@ -33,7 +33,7 @@ steps:
 
 - script: 'echo "Hello World" > hello.txt'
   displayName: 'Write build info'
-  workingDirectory: $(Build.SourcesDirectory)/wwwroot
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/wwwroot
 
 - task: CopyFiles@2
   inputs:
