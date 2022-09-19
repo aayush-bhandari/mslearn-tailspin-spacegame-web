@@ -71,6 +71,18 @@ steps:
     arguments: '--no-restore --configuration Release'
     projects: '**/*.csproj'
 
+- task: DownloadPipelineArtifact@2
+  displayName: 'Download artifacts'
+  inputs:
+    artifact: '**/**/Aayush'
+    path: $(Build.ArtifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish final folder'
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: FinalFolder
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
   inputs:
