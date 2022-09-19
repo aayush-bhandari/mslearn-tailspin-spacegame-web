@@ -79,9 +79,9 @@ steps:
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish final folder'
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: FinalFolder
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: FinalFolder
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
