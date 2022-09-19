@@ -1,0 +1,14 @@
+parameters:
+  contents: ""
+  artifactName: ""
+
+steps:
+  - task: CopyFiles@2
+    inputs:
+      contents: ${{ parameters.contents }}
+      targetFolder: $(Build.ArtifactStagingDirectory)
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: ${{ parameters.artifactName }}

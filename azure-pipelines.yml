@@ -31,19 +31,32 @@ steps:
   displayName: 'Write build info'
   workingDirectory: Tailspin.SpaceGame.Web/wwwroot
 
-- script: 'echo "Hello World" > hello.txt'
-  displayName: 'Write build info'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/wwwroot
+- script: 'echo "Hello World" > hello1.txt'
+  displayName: 'Write hello1'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 
-- task: CopyFiles@2
-  inputs:
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/wwwroot/**'
-    targetFolder: $(Build.ArtifactStagingDirectory)
+- template: copy-publish.yml@self
+  parameters:
+    artifactName: 'MyCustomFolder1'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello1.txt'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: MyCustomFile
+- script: 'echo "Hello World" > hello2.txt'
+  displayName: 'Write hello2'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+
+- template: copy-publish.yml@self
+  parameters:
+    artifactName: 'MyCustomFolder2'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello2.txt'
+
+- script: 'echo "Hello World" > hello3.txt'
+  displayName: 'Write hello3'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+
+- template: copy-publish.yml@self
+  parameters:
+    artifactName: 'MyCustomFolder3'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello3.txt'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
