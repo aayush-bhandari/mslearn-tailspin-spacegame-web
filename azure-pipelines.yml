@@ -37,7 +37,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: '$(Build.SourcesDirectory)/wwwroot/**'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/wwwroot/**'
     targetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
