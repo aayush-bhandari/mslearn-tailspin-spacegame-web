@@ -74,7 +74,7 @@ steps:
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
   inputs:
-    patterns: '**/**/Aayush'
+    patterns: '**/Tailspin.SpaceGame.Web'
     path: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
