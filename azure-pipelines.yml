@@ -75,13 +75,12 @@ steps:
   displayName: 'Download artifacts'
   inputs:
     patterns: '*[1-3]/Tailspin.SpaceGame.Web/Aayush/*.txt'
-    path: $(Build.ArtifactStagingDirectory)
+    path: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish final folder'
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: FinalFolder
+- template: copy-publish.yml@self
+  parameters:
+    artifactName: 'FinalFolder'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'

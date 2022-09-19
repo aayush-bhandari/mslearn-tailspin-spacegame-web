@@ -1,5 +1,5 @@
 parameters:
-  contents: ""
+  contents: "**"
   artifactName: ""
 
 steps:
