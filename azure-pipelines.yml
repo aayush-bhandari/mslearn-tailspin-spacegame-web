@@ -71,6 +71,10 @@ steps:
     arguments: '--no-restore --configuration Release'
     projects: '**/*.csproj'
 
+- script: 'mkdir /tmp-gzip/hashed-assets'
+  displayName: 'create folder'
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
   inputs:
@@ -82,6 +86,7 @@ steps:
     artifactName: 'FinalFolder'
     contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/*.txt'
     flattenFolders: true
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
     
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
