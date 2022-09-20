@@ -75,6 +75,10 @@ steps:
   displayName: 'create folder'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 
+- script: 'ls'
+  displayName: 'list folders'
+  workingDirectory: $(Build.SourcesDirectory)
+
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
   inputs:
