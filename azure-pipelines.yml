@@ -127,10 +127,10 @@ steps:
     flattenFolders: true
     cleanTargetFolder: true      
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)
-      artifactName: 'BuildArtifacts'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: 'BuildArtifacts'
     
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
