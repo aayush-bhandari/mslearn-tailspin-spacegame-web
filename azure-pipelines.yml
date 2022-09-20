@@ -60,36 +60,36 @@ steps:
 
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1'
   displayName: 'Write hello1'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file1.txt'
   displayName: 'Write hello1'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/exp1
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'expFolder1'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/exp1'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1'
 
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2'
   displayName: 'Write hello2'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file2.txt'
   displayName: 'Write hello2'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/exp2
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'expFolder2'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/exp2'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2'
 
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3'
   displayName: 'Write hello3'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file3.txt'
   displayName: 'Write hello3'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/exp3
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'expFolder3'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/exp3'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
@@ -119,7 +119,7 @@ steps:
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
   inputs:
-    patterns: '*[1-3]/Tailspin.SpaceGame.Web/Aayush/**/*'
+    patterns: '*[1-3]/Tailspin.SpaceGame.Web/**/*'
     path: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
 
 - template: copy-publish.yml@self
