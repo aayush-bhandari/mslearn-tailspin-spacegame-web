@@ -59,7 +59,7 @@ steps:
     contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello3.txt'
 
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1'
-  displayName: 'Write hello1'
+  displayName: 'cf 1'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file1.txt'
   displayName: 'Write hello1'
@@ -67,10 +67,10 @@ steps:
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'expFolder1'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1/**'
 
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2'
-  displayName: 'Write hello2'
+  displayName: 'cf 2'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file2.txt'
   displayName: 'Write hello2'
@@ -78,10 +78,10 @@ steps:
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'expFolder2'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2/**'
 
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3'
-  displayName: 'Write hello3'
+  displayName: 'cf 3'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file3.txt'
   displayName: 'Write hello3'
@@ -89,7 +89,7 @@ steps:
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'expFolder3'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3/**'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
