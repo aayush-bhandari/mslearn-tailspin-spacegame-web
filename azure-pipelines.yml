@@ -113,19 +113,24 @@ steps:
     patterns: '*[1-3]/Tailspin.SpaceGame.Web/**/*'
     path: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
 
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'BuildArtifacts'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
-    flattenFolders: true
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
+- task: CopyFiles@2
+    inputs:
+      contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
+      targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
+      flattenFolders: true
+      cleanTargetFolder: true
 
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'BuildArtifacts'
-    contents: '!$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
-    flattenFolders: true
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
+- task: CopyFiles@2
+    inputs:
+      contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
+      targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
+      flattenFolders: true
+      cleanTargetFolder: true      
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: 'BuildArtifacts'
     
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
