@@ -34,62 +34,47 @@ steps:
 - script: 'echo "Hello World" > hello1.txt'
   displayName: 'Write hello1'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
-
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'MyCustomFolder1'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello1.txt'
-
-- script: 'echo "Hello World" > hello2.txt'
-  displayName: 'Write hello2'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
-
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'MyCustomFolder2'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello2.txt'
-
-- script: 'echo "Hello World" > hello3.txt'
-  displayName: 'Write hello3'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
-
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'MyCustomFolder3'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/hello3.txt'
-
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1'
   displayName: 'cf 1'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file1.txt'
   displayName: 'Write hello1'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1
+
 - template: copy-publish.yml@self
   parameters:
-    artifactName: 'expFolder1'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1/**'
+    artifactName: 'MyCustomFolder1'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/*'
 
+- script: 'echo "Hello World" > hello2.txt'
+  displayName: 'Write hello2'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2'
   displayName: 'cf 2'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file2.txt'
   displayName: 'Write hello2'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2
+
 - template: copy-publish.yml@self
   parameters:
-    artifactName: 'expFolder2'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2/**'
+    artifactName: 'MyCustomFolder2'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/*'
 
+- script: 'echo "Hello World" > hello3.txt'
+  displayName: 'Write hello3'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 - script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3'
   displayName: 'cf 3'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 - script: 'echo "Hello World" > file3.txt'
   displayName: 'Write hello3'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3
+
 - template: copy-publish.yml@self
   parameters:
-    artifactName: 'expFolder3'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3/**'
+    artifactName: 'MyCustomFolder3'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/*'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
@@ -125,7 +110,7 @@ steps:
 - template: copy-publish.yml@self
   parameters:
     artifactName: 'BuildArtifacts'
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/*.txt'
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
     flattenFolders: true
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
 
