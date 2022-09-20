@@ -45,8 +45,8 @@ steps:
   parameters:
     artifactName: 'MyCustomFolder1'
     contents: | 
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1/**
+      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**
 
 - script: 'echo "Hello World" > hello2.txt'
   displayName: 'Write hello2'
@@ -62,8 +62,8 @@ steps:
   parameters:
     artifactName: 'MyCustomFolder2'
     contents: | 
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2/**
+      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**
 
 - script: 'echo "Hello World" > hello3.txt'
   displayName: 'Write hello3'
@@ -79,8 +79,8 @@ steps:
   parameters:
     artifactName: 'MyCustomFolder3'
     contents: | 
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3/**
+      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
