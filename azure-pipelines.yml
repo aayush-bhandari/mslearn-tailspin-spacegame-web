@@ -85,20 +85,9 @@ steps:
     patterns: '*[1-3]/Tailspin.SpaceGame.Web/Aayush/*.txt'
     path: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
 
-- task: CopyFiles@2
-  inputs:
-    contents: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/*.txt
-    targetFolder: $(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets
-    flattenFolders: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: BuildArtifacts
-
 - template: copy-publish.yml@self
   parameters:
-    artifactName: 'FinalFolder'
+    artifactName: 'BuildArtifacts'
     contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/*.txt'
     flattenFolders: true
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
