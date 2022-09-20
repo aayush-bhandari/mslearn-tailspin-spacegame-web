@@ -114,18 +114,18 @@ steps:
     path: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
 
 - task: CopyFiles@2
-    inputs:
-      contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
-      targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
-      flattenFolders: true
-      cleanTargetFolder: true
+  inputs:
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
+    flattenFolders: true
+    cleanTargetFolder: true
 
 - task: CopyFiles@2
-    inputs:
-      contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
-      targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
-      flattenFolders: true
-      cleanTargetFolder: true      
+  inputs:
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
+    flattenFolders: true
+    cleanTargetFolder: true      
 
   - task: PublishBuildArtifacts@1
     inputs:
