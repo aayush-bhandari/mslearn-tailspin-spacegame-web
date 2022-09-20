@@ -73,7 +73,7 @@ steps:
 
 - script: 'mkdir -p /tmp-gzip/hashed-assets'
   displayName: 'create folder'
-  workingDirectory: $(Build.ArtifactStagingDirectory)
+  workingDirectory: $(Build.SourcesDirectory)
 
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
