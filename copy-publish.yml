@@ -9,7 +9,7 @@ steps:
       contents: ${{ parameters.contents }}
       targetFolder: $(Build.ArtifactStagingDirectory)
       cleanTargetFolder: true
-      flattenFolders: ${{ flattenFolders }}
+      flattenFolders: ${{ parameters.flattenFolders }}
 
   - task: PublishBuildArtifacts@1
     inputs:
