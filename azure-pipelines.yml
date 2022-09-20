@@ -71,7 +71,7 @@ steps:
     arguments: '--no-restore --configuration Release'
     projects: '**/*.csproj'
 
-- script: 'mkdir -p /tmp-gzip/hashed-assets'
+- script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/tmp-gzip/hashed-assets'
   displayName: 'create folder'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
 
