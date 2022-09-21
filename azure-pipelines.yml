@@ -92,7 +92,7 @@ steps:
 
 - script: 'echo "Hello World" > trial.txt'
   displayName: 'trial'
-  workingDirectory: $(Build.SourcesDirectory)Tailspin.SpaceGame.Web/DownloadedArtifacts
+  workingDirectory: $(Build.SourcesDirectory)/ailspin.SpaceGame.Web/DownloadedArtifacts
 
 - script: 'find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/ -type d -name "Aayush" -exec rm -rf {} \ -print0'
   displayName: 'delete hashed-assests'
@@ -100,7 +100,7 @@ steps:
 
 - script: 'ls'
   displayName: 'list folders'
-  workingDirectory: $(Build.ArtifactStagingDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/
 
 - task: CopyFiles@2
   inputs:
