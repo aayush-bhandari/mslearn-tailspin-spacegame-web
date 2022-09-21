@@ -10,60 +10,50 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber) $(Build.ArtifactStagingDirectory) $(Build.SourcesDirectory)" > buildinfo.txt'
-  displayName: 'Write build info'
-  workingDirectory: Tailspin.SpaceGame.Web/wwwroot
-
-- script: 'echo "Hello World" > hello1.txt'
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/hashed-assets'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'echo "Hello World" > tmp-gzipHello.txt'
   displayName: 'Write hello1'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
-- script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1'
-  displayName: 'cf 1'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
-- script: 'echo "Hello World" > file1.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/hashed-assets
+
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/other1'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/other2/subOther2'
+  workingDirectory: $(Build.SourcesDirectory)
+
+- script: 'echo "Hello World" > other1.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/other1
+- script: 'echo "Hello World" > subOther2.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/other2/subOther2
+
+- template: copy-publish.yml@self
+  parameters:
+    artifactName: 'all_exp_1'
+    contents: | 
+      $(Build.SourcesDirectory)/tmp-gzip/**
+
+#tmp dir
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/hashed-assets'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'echo "Hello World" > tmpHello.txt'
   displayName: 'Write hello1'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1
+  workingDirectory: $(Build.SourcesDirectory)/tmp/hashed-assets
+
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other1'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other2/subOther2'
+  workingDirectory: $(Build.SourcesDirectory)
+
+- script: 'echo "Hello World" > other1.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other1
+- script: 'echo "Hello World" > subOther2.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other2/subOther2
 
 - template: copy-publish.yml@self
   parameters:
-    artifactName: 'MyCustomFolder1'
+    artifactName: 'all_exp_2'
     contents: | 
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp1/**
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**
-
-- script: 'echo "Hello World" > hello2.txt'
-  displayName: 'Write hello2'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
-- script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2'
-  displayName: 'cf 2'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
-- script: 'echo "Hello World" > file2.txt'
-  displayName: 'Write hello2'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2
-
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'MyCustomFolder2'
-    contents: | 
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp2/**
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**
-
-- script: 'echo "Hello World" > hello3.txt'
-  displayName: 'Write hello3'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
-- script: 'mkdir -p $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3'
-  displayName: 'cf 3'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web
-- script: 'echo "Hello World" > file3.txt'
-  displayName: 'Write hello3'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3
-
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'MyCustomFolder3'
-    contents: | 
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/exp3/**
-      $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**
+      $(Build.SourcesDirectory)/tmp/**
 
 - script: 'mkdir -p $(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
   displayName: 'create folder'
@@ -73,40 +63,45 @@ steps:
   displayName: 'create folder'
   workingDirectory: $(Build.ArtifactStagingDirectory)
 
-- script: 'ls'
-  displayName: 'list folders'
-  workingDirectory: $(Build.ArtifactStagingDirectory)
+- script: 'mkdir -p $(Build.SourcesDirectory)/DownloadedArtifacts'
+  displayName: 'create folder'
+  workingDirectory: $(Build.SourcesDirectory)
 
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
   inputs:
-    patterns: '*[1-3]/Tailspin.SpaceGame.Web/**/*'
-    path: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
+    patterns: '*[1-2]/**/*'
+    path: $(Build.SourcesDirectory)/DownloadedArtifacts
 
 - task: CopyFiles@2
   inputs:
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**'
+    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/tmp-gzip/**/hashed-assets/**'
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
     flattenFolders: true
     cleanTargetFolder: true
 
-- script: 'echo "Hello World" > trial.txt'
-  displayName: 'trial'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
+- task: CopyFiles@2
+  inputs:
+    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/tmp/**/hashed-assets/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp/hashed-assets'
+    flattenFolders: true
+    cleanTargetFolder: true
 
-- script: 'find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/ -type d -name "Aayush" -exec rm -rf {} + -print0'
+- script: 'find $(Build.SourcesDirectory)/DownloadedArtifacts/ -type d -name "hashed-assets" -exec rm -rf {} + -print0'
   displayName: 'delete hashed-assests'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
-
-- script: 'ls'
-  displayName: 'list folders'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/
+  workingDirectory: $(Build.SourcesDirectory)/DownloadedArtifacts
 
 - task: CopyFiles@2
   inputs:
-    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/MyCustomFolder*/**/Tailspin.SpaceGame.Web/**'
+    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp/**'
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
-    cleanTargetFolder: true      
+    cleanTargetFolder: true
+
+- task: CopyFiles@2
+  inputs:
+    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp-gzip/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'
+    cleanTargetFolder: true            
 
 - task: PublishBuildArtifacts@1
   inputs:
