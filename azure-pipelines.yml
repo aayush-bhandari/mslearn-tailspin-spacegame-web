@@ -10,6 +10,8 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+#exp 1
 - script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/hashed-assets'
   workingDirectory: $(Build.SourcesDirectory)
 - script: 'echo "Hello World" > tmp-gzipHello.txt'
@@ -25,12 +27,6 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/other1
 - script: 'echo "Hello World" > subOther2.txt'
   workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/other2/subOther2
-
-- template: copy-publish.yml@self
-  parameters:
-    artifactName: 'all_exp_1'
-    contents: | 
-      $(Build.SourcesDirectory)/tmp-gzip/**
 
 #tmp dir
 - script: 'mkdir -p $(Build.SourcesDirectory)/tmp/hashed-assets'
@@ -51,8 +47,51 @@ steps:
 
 - template: copy-publish.yml@self
   parameters:
+    artifactName: 'all_exp_1'
+    contents: | 
+      $(Build.SourcesDirectory)/tmp-gzip/**
+      $(Build.SourcesDirectory)/tmp/**
+#exp 2
+
+#exp 1
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/hashed-assets'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'echo "Hello World" > tmp-gzip_exp2.txt'
+  displayName: 'Write hello1'
+  workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/hashed-assets
+
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/other1Exp2'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/other2Exp2/subOther2Exp2'
+  workingDirectory: $(Build.SourcesDirectory)
+
+- script: 'echo "Hello World" > other1.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/other1Exp2
+- script: 'echo "Hello World" > subOther2.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp-gzip/other2Exp2/subOther2Exp2
+
+#tmp dir
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/hashed-assets'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'echo "Hello World" > tmpHelloExp2.txt'
+  displayName: 'Write hello1'
+  workingDirectory: $(Build.SourcesDirectory)/tmp/hashed-assets
+
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other1Exp2'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other2Exp2/subOther2Exp2'
+  workingDirectory: $(Build.SourcesDirectory)
+
+- script: 'echo "Hello World" > other1Exp2.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other1Exp2
+- script: 'echo "Hello World" > subOther2Exp2.txt'
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other2Exp2/subOther2Exp2
+
+- template: copy-publish.yml@self
+  parameters:
     artifactName: 'all_exp_2'
     contents: | 
+      $(Build.SourcesDirectory)/tmp-gzip/**
       $(Build.SourcesDirectory)/tmp/**
 
 - script: 'mkdir -p $(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
