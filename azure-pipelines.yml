@@ -90,10 +90,17 @@ steps:
     flattenFolders: true
     cleanTargetFolder: true
 
+- script: 'find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts -name "Aayush*" -type d –delete'
+  displayName: 'delete hashed-assests'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
+
+- script: 'ls'
+  displayName: 'list folders'
+  workingDirectory: $(Build.ArtifactStagingDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/MyCustomFolder1/Tailspin.SpaceGame.Web/
+
 - task: CopyFiles@2
   inputs:
-    contents: | 
-      !$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/MyCustomFolder*/**/**/Aayush/**
+    contents: '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/MyCustomFolder*/**/Tailspin.SpaceGame.Web/**'
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
     cleanTargetFolder: true      
 
