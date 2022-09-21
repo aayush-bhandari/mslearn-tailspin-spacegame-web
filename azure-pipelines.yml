@@ -90,7 +90,7 @@ steps:
     flattenFolders: true
     cleanTargetFolder: true
 
-- script: 'find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts –delete -type d -name "Aayush"'
+- script: 'find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts –delete -type d -name "Aayush" -depth +3 -print0'
   displayName: 'delete hashed-assests'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts
 
