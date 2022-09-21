@@ -93,9 +93,8 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: | 
-      !$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/Aayush/**
+      !$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts/**/MyCustomFolder*/**/**/Aayush/**
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
-    flattenFolders: true
     cleanTargetFolder: true      
 
 - task: PublishBuildArtifacts@1
