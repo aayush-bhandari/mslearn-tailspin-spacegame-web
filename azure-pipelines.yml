@@ -158,9 +158,21 @@ steps:
     apt-get install jq
     echo '{}' > $(Build.SourcesDirectory)/merged.json
     cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
+    echo 'def deepmerge(a;b):
+              reduce b[] as $item (a;
+                reduce ($item | keys_unsorted[]) as $key (.;
+                  $item[$key] as $val | ($val | type) as $type | .[$key] = if ($type == "object") then
+                    deepmerge({}; [if .[$key] == null then {} else .[$key] end, $val])
+                  elif ($type == "array") then
+                    (.[$key] + $val | unique)
+                  else
+                    $val
+                  end)
+                );
+              deepmerge({}; .)' > deepmerge.jq
     for i in *.json
     do
-      jq -s '.[0] * .[1]' $i $(Build.SourcesDirectory)/merged.json 
+      jq -f deepmerge.jq -s $(Build.SourcesDirectory)/merged.json $i
       echo "$i content:" 
       cat $i
       echo "merged.jsonFile:" 
