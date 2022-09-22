@@ -156,24 +156,13 @@ steps:
 
 - script: |
     apt-get install jq
+    > $(Build.SourcesDirectory)/merged.json
     cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
-    echo 'def deepmerge(a;b):
-              reduce b[] as $item (a;
-                reduce ($item | keys_unsorted[]) as $key (.;
-                  $item[$key] as $val | ($val | type) as $type | .[$key] = if ($type == "object") then
-                    deepmerge({}; [if .[$key] == null then {} else .[$key] end, $val])
-                  elif ($type == "array") then
-                    (.[$key] + $val | unique)
-                  else
-                    $val
-                  end)
-                );
-              deepmerge({}; .)' > deepmerge.jq
-    echo '{}' > $(Build.ArtifactStagingDirectory)/merged.json
     for i in *.json
     do
-      jq -f deepmerge.jq -s $(Build.ArtifactStagingDirectory)/merged.json $i
+      jq -s '.[0] * .[1]' $(Build.SourcesDirectory)/merged.json $i
     done
+    mv $(Build.SourcesDirectory)/merged.json $(Build.ArtifactStagingDirectory)/
   displayName: 'Merge jsons'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 
