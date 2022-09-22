@@ -151,14 +151,12 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'
-    cleanTargetFolder: true
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'    
 
 - task: CopyFiles@2
   inputs:
     contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp-gzip/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'
-    cleanTargetFolder: true            
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'          
 
 - script: 'ls'
   displayName: 'list folders'
