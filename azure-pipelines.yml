@@ -175,9 +175,10 @@ steps:
                 );
               deepmerge({}; .)' > deepmerge.jq
     echo '{}' > merged.json
-    cat deepmerge.jq
-    jq -f deepmerge.jq -s a.json merged.json > merged.json
-    cat merged.json
+    for i in *.json
+      jq -f deepmerge.jq -s $i merged.json > merged.json
+      cat merged.json
+    done
     mv $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/merged.json $(Build.ArtifactStagingDirectory)/
   displayName: 'Merge jsons'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
