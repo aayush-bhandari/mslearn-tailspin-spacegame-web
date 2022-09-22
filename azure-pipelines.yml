@@ -101,6 +101,13 @@ steps:
       $(Build.SourcesDirectory)/tmp-gzip/**
       $(Build.SourcesDirectory)/tmp/**
 
+- script: 'find $(Build.ArtifactStagingDirectory)/ -type d -name "tmp-gzip" -exec rm -rf {} + -print0'
+  displayName: 'clean staging dir'
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+- script: 'find $(Build.ArtifactStagingDirectory)/ -type d -name "tmp" -exec rm -rf {} + -print0'
+  displayName: 'clean staging dir'
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+
 - script: 'mkdir -p $(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
   displayName: 'create folder'
   workingDirectory: $(Build.ArtifactStagingDirectory)
@@ -152,6 +159,10 @@ steps:
     contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp-gzip/**'
     targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'
     cleanTargetFolder: true            
+
+- script: 'ls'
+  displayName: 'list folders'
+  workingDirectory: $(Build.ArtifactStagingDirectory)/tmp/
 
 - task: PublishBuildArtifacts@1
   inputs:
