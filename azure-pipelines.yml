@@ -160,8 +160,18 @@ steps:
     verbose: false
 
 - script: |
-    npm install dotsunited-merge-json -g
-    find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/ -name "*.json" -exec dotsunited-merge-json > $(Build.ArtifactStagingDirectory)/merged.json {} \;
+    jq -s 'def deepmerge(a;b):
+    reduce b[] as $item (a;
+      reduce ($item | keys_unsorted[]) as $key (.;
+        $item[$key] as $val | ($val | type) as $type | .[$key] = if ($type == "object") then
+          deepmerge({}; [if .[$key] == null then {} else .[$key] end, $val])
+        elif ($type == "array") then
+          (.[$key] + $val | unique)
+        else
+          $val
+        end)
+      );
+    deepmerge({}; .)' a.json b.json > merged.json
   displayName: 'Merge jsons'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 
