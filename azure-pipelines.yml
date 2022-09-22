@@ -160,6 +160,7 @@ steps:
     verbose: false
 
 - script: |
+    apt-get install jq
     jq -s 'def deepmerge(a;b):
     reduce b[] as $item (a;
       reduce ($item | keys_unsorted[]) as $key (.;
@@ -171,7 +172,7 @@ steps:
           $val
         end)
       );
-    deepmerge({}; .)' a.json b.json > merged.json
+    deepmerge({}; .)' $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/a.json $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/b.json > $(Build.ArtifactStagingDirectory)/merged.json
   displayName: 'Merge jsons'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 
