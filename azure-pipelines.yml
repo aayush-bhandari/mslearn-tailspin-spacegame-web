@@ -142,26 +142,17 @@ steps:
 
 - script: 'find $(Build.SourcesDirectory)/DownloadedArtifacts/ -type d -name "hashed-assets" -exec rm -rf {} + -print0'
   displayName: 'delete hashed-assests'
-  workingDirectory: $(Build.SourcesDirectory)/DownloadedArtifacts
+  workingDirectory: $(Build.SourcesDirectory)/DownloadedArtifacts 
 
-
-- task: CopyFiles@2
-  inputs:
-    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp'    
-
-- task: CopyFiles@2
-  inputs:
-    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp-gzip/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'      
-
-- script: 'mv $(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/tmp-gzip/** $(Build.ArtifactStagingDirectory)/tmp-gzip/ '
+- script: |
+    mv $(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/tmp-gzip/** $(Build.ArtifactStagingDirectory)/tmp-gzip/
+    mv $(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/tmp/** $(Build.ArtifactStagingDirectory)/tmp/
   displayName: 'move folders'
-  workingDirectory: $(Build.ArtifactStagingDirectory)/tmp/
+  workingDirectory: $(Build.ArtifactStagingDirectory)
 
 - script: 'ls'
   displayName: 'list folders'
-  workingDirectory: $(Build.ArtifactStagingDirectory)/tmp/
+  workingDirectory: $(Build.ArtifactStagingDirectory)
 
 - task: PublishBuildArtifacts@1
   inputs:
