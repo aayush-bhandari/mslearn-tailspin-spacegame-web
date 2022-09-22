@@ -35,15 +35,15 @@ steps:
   displayName: 'Write hello1'
   workingDirectory: $(Build.SourcesDirectory)/tmp/hashed-assets
 
-- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other1'
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other1tmp'
   workingDirectory: $(Build.SourcesDirectory)
-- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other2/subOther2'
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other2tmp/subOther2'
   workingDirectory: $(Build.SourcesDirectory)
 
 - script: 'echo "Hello World" > other1.txt'
-  workingDirectory: $(Build.SourcesDirectory)/tmp/other1
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other1tmp
 - script: 'echo "Hello World" > subOther2.txt'
-  workingDirectory: $(Build.SourcesDirectory)/tmp/other2/subOther2
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other2tmp/subOther2
 
 - template: copy-publish.yml@self
   parameters:
@@ -84,15 +84,15 @@ steps:
   displayName: 'Write hello1'
   workingDirectory: $(Build.SourcesDirectory)/tmp/hashed-assets
 
-- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other1Exp2'
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other1Exp2tmp'
   workingDirectory: $(Build.SourcesDirectory)
-- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other2Exp2/subOther2Exp2'
+- script: 'mkdir -p $(Build.SourcesDirectory)/tmp/other2Exp2tmp/subOther2Exp2'
   workingDirectory: $(Build.SourcesDirectory)
 
 - script: 'echo "Hello World" > other1Exp2.txt'
-  workingDirectory: $(Build.SourcesDirectory)/tmp/other1Exp2
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other1Exp2tmp
 - script: 'echo "Hello World" > subOther2Exp2.txt'
-  workingDirectory: $(Build.SourcesDirectory)/tmp/other2Exp2/subOther2Exp2
+  workingDirectory: $(Build.SourcesDirectory)/tmp/other2Exp2tmp/subOther2Exp2
 
 - template: copy-publish.yml@self
   parameters:
