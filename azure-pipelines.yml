@@ -160,7 +160,7 @@ steps:
     cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
     for i in *.json
     do
-      jq -s '.[0] * .[1]' $i $(Build.SourcesDirectory)/merged.json
+      jq -s '.[0] * .[1]' $i $(Build.SourcesDirectory)/merged.json > $(Build.SourcesDirectory)/merged.json
     done
     mv $(Build.SourcesDirectory)/merged.json $(Build.ArtifactStagingDirectory)/
   displayName: 'Merge jsons'
