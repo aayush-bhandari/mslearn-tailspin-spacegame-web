@@ -51,9 +51,16 @@ steps:
     contents: | 
       $(Build.SourcesDirectory)/tmp-gzip/**
       $(Build.SourcesDirectory)/tmp/**
+
+- script: 'find $(Build.SourcesDirectory)/ -type d -name "tmp-gzip" -exec rm -rf {} + -print0'
+  displayName: 'delete gzip'
+  workingDirectory: $(Build.SourcesDirectory)
+- script: 'find $(Build.SourcesDirectory)/ -type d -name "tmp" -exec rm -rf {} + -print0'
+  displayName: 'delete tmp'
+  workingDirectory: $(Build.SourcesDirectory)
+
 #exp 2
 
-#exp 1
 - script: 'mkdir -p $(Build.SourcesDirectory)/tmp-gzip/hashed-assets'
   workingDirectory: $(Build.SourcesDirectory)
 - script: 'echo "Hello World" > tmp-gzip_exp2.txt'
