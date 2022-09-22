@@ -156,7 +156,7 @@ steps:
 
 - script: |
     apt-get install jq
-    > $(Build.SourcesDirectory)/merged.json
+    echo '{}' > $(Build.SourcesDirectory)/merged.json
     cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
     for i in *.json
     do
