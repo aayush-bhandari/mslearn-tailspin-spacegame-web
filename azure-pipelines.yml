@@ -144,9 +144,6 @@ steps:
   displayName: 'delete hashed-assests'
   workingDirectory: $(Build.SourcesDirectory)/DownloadedArtifacts
 
-- script: 'ls'
-  displayName: 'list folders'
-  workingDirectory: $(Build.ArtifactStagingDirectory)/tmp/
 
 - task: CopyFiles@2
   inputs:
@@ -156,7 +153,11 @@ steps:
 - task: CopyFiles@2
   inputs:
     contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/**/tmp-gzip/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'          
+    targetFolder: '$(Build.ArtifactStagingDirectory)/tmp-gzip'      
+
+- script: 'mv $(Build.SourcesDirectory)/DownloadedArtifacts/*[1-2]/tmp-gzip/** $(Build.ArtifactStagingDirectory)/tmp-gzip/ '
+  displayName: 'move folders'
+  workingDirectory: $(Build.ArtifactStagingDirectory)/tmp/
 
 - script: 'ls'
   displayName: 'list folders'
