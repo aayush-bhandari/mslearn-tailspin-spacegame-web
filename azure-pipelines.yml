@@ -154,6 +154,17 @@ steps:
   displayName: 'list folders'
   workingDirectory: $(Build.ArtifactStagingDirectory)
 
+- task: Npm@1
+  displayName: 'Run npm install'
+  inputs:
+    verbose: false
+
+- script: |
+    npm install dotsunited-merge-json -g
+    find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/ -name "*.json" -exec dotsunited-merge-json > $(Build.ArtifactStagingDirectory)/merged.json {} \;
+  displayName: 'Merge jsons'
+  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
