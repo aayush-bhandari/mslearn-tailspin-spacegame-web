@@ -176,6 +176,12 @@ steps:
   displayName: 'Merge jsons'
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 
+- script: |
+      apt install tree
+      tree -d > $(Build.ArtifactStagingDirectory)/tree.txt
+    displayName: "print directory structure"
+    workingDirectory: $(Build.ArtifactStagingDirectory)
+    
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
