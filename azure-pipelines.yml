@@ -177,10 +177,10 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
 
 - script: |
-      apt install tree
+      sudo apt install tree
       tree -d $(Build.ArtifactStagingDirectory) > $(Build.ArtifactStagingDirectory)/tree.txt
     displayName: "print directory structure"
-    workingDirectory: $(Build.ArtifactStagingDirectory)
+    workingDirectory: $(Build.ArtifactStagingDirectory)/
 
 - task: PublishBuildArtifacts@1
   inputs:
