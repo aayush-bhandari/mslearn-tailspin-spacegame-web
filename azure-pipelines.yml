@@ -156,7 +156,7 @@ steps:
 
 - script: |
     apt-get install jq
-    echo '{"dummy": "123"}' > $(Build.SourcesDirectory)/merged.json
+    echo '{}' > $(Build.SourcesDirectory)/merged.json
     cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
     echo 'def deepmerge(a;b):
               reduce b[] as $item (a;
@@ -174,7 +174,7 @@ steps:
     do
       echo "before merge merged.json File:" 
       cat $(Build.SourcesDirectory)/merged.json
-      jq -f deepmerge.jq -s $(Build.ArtifactStagingDirectory)/merged.json $i > $(Build.SourcesDirectory)/merged.json
+      jq -f deepmerge.jq -s $(Build.SourcesDirectory)/merged.json $i > $(Build.SourcesDirectory)/merged.json
       echo "$i content:" 
       cat $i
       echo "merged.jsonFile:" 
