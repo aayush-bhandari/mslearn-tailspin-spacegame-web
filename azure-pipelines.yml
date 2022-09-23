@@ -108,6 +108,17 @@ steps:
   displayName: 'clean staging dir'
   workingDirectory: $(Build.ArtifactStagingDirectory)
 
+- script: |
+    mkdir -p $(Build.ArtifactStagingDirectory)/SubdummyFolder
+    cd $(Build.ArtifactStagingDirectory)/SubdummyFolder
+    echo "Hello" > hello.txt
+  displayName: 'create dummy folder'
+  workingDirectory: $(Build.ArtifactStagingDirectory)/SubdummyFolder
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: 'dummyFolder'
+
 - script: 'mkdir -p $(Build.ArtifactStagingDirectory)/tmp-gzip/hashed-assets'
   displayName: 'create folder'
   workingDirectory: $(Build.ArtifactStagingDirectory)
@@ -123,7 +134,9 @@ steps:
 - task: DownloadPipelineArtifact@2
   displayName: 'Download artifacts'
   inputs:
-    patterns: '*[1-2]/**/*'
+    patterns: | 
+      *[1-2]/**/*
+      dummy*/**/*
     path: $(Build.SourcesDirectory)/DownloadedArtifacts
 
 - task: CopyFiles@2
