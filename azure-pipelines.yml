@@ -113,7 +113,8 @@ steps:
     cd $(Build.ArtifactStagingDirectory)/SubdummyFolder
     echo "Hello" > hello.txt
   displayName: 'create dummy folder'
-  workingDirectory: $(Build.ArtifactStagingDirectory)/SubdummyFolder
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
