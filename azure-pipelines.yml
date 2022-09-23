@@ -174,7 +174,7 @@ steps:
     do
       echo "before merge merged.json File:" 
       cat $(Build.SourcesDirectory)/merged.json
-      jq -f deepmerge.jq -s $(Build.SourcesDirectory)/merged.json $i > $(Build.SourcesDirectory)/merged.json
+      jq  deepmerge.jq -s $(Build.SourcesDirectory)/merged.json $i > $(Build.SourcesDirectory)/merged.json
       echo "$i content:" 
       cat $i
       echo "merged.jsonFile:" 
