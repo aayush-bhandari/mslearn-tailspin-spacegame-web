@@ -172,9 +172,12 @@ steps:
               deepmerge({}; .)' > deepmerge.jq
     for i in *.json
     do
+      cp $(Build.SourcesDirectory)/merged.json $(Build.SourcesDirectory)/NewMerged.json
       echo "before merge merged.json File:" 
       cat $(Build.SourcesDirectory)/merged.json
-      jq -f deepmerge.jq -s $(Build.SourcesDirectory)/merged.json $i > $(Build.SourcesDirectory)/merged.json
+      echo "before merge NewMerged.json File:" 
+      cat $(Build.SourcesDirectory)/NewMerged.json
+      jq -f deepmerge.jq -s $(Build.SourcesDirectory)/NewMerged.json $i > $(Build.SourcesDirectory)/merged.json
       echo "$i content:" 
       cat $i
       echo "merged.jsonFile:" 
