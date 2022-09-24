@@ -167,6 +167,7 @@ steps:
 - script: |
     echo '{}' > $(Build.SourcesDirectory)/merged.json
     cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
+    lsb_release -a
     for i in *.json
     do
       cp $(Build.SourcesDirectory)/merged.json $(Build.SourcesDirectory)/NewMerged.json
