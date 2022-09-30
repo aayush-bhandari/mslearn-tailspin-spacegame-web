@@ -164,40 +164,13 @@ steps:
   displayName: 'move folders'
   workingDirectory: $(Build.ArtifactStagingDirectory)
 
-- script: |
-    echo '{}' > $(Build.SourcesDirectory)/merged.json
-    cd  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/
-    lsb_release -a
-    sudo apt-get install jq
-    echo 'def deepmerge(a;b):
-            reduce b[] as $item (a;
-              reduce ($item | keys_unsorted[]) as $key (.;
-                $item[$key] as $val | ($val | type) as $type | .[$key] = if ($type == "object") then
-                  deepmerge({}; [if .[$key] == null then {} else .[$key] end, $val])
-                elif ($type == "array") then
-                  (.[$key] + $val | unique)
-                else
-                  $val
-                end)
-              );
-            deepmerge({}; .)' > deepmerge.jq
+- script: node ./merge.js
+  displayName: merge json files
 
-    for i in *.json
-    do
-      cp $(Build.SourcesDirectory)/merged.json $(Build.SourcesDirectory)/NewMerged.json
-      echo "before merge merged.json File:" 
-      cat $(Build.SourcesDirectory)/merged.json
-      echo "before merge NewMerged.json File:" 
-      cat $(Build.SourcesDirectory)/NewMerged.json
-      jq -f deepmerge.jq -s $(Build.SourcesDirectory)/NewMerged.json $i > $(Build.SourcesDirectory)/merged.json
-      echo "$i content:" 
-      cat $i
-      echo "merged.jsonFile:" 
-      cat $(Build.SourcesDirectory)/merged.json
-    done
-    mv $(Build.SourcesDirectory)/merged.json $(Build.ArtifactStagingDirectory)/
-  displayName: 'Merge jsons'
-  workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush
+ script: |
+    mv $(Build.SourcesDirectory)/DownloadedArtifacts/versions.json $(Build.ArtifactStagingDirectory)
+  displayName: 'move versions.json'
+  workingDirectory: $(Build.ArtifactStagingDirectory)
 
 - script: |
     sudo apt-get install tree
