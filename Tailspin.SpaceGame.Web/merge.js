@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path')
 const jsonsInDir = fs.readdirSync('/home/vsts/work/1/s/Tailspin.SpaceGame.Web/Aayush/')
 let mergedString = '{'
 
