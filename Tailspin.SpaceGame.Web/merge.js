@@ -1,5 +1,5 @@
 const fs = require('fs');
-const jsonsInDir = fs.readdirSync('./Tailspin.SpaceGame.Web/Aayush')
+const jsonsInDir = fs.readdirSync('./Aayush')
 let mergedString = '{'
 
 jsonsInDir.forEach(file => {
@@ -14,7 +14,7 @@ mergedString = mergedString.slice(0,-1)+'}'
 const mergedJson = JSON.stringify(mergedString);
 
 // write file to disk
-fs.writeFile('./Tailspin.SpaceGame.Web/DownloadedArtifacts/versions.json', mergedJson, 'utf8', (err) => {
+fs.writeFile('./DownloadedArtifacts/versions.json', mergedJson, 'utf8', (err) => {
 
     if (err) {
         console.log(`Error writing file: ${err}`);

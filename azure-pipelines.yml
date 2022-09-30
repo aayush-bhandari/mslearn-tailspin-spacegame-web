@@ -164,7 +164,7 @@ steps:
   displayName: 'move folders'
   workingDirectory: $(Build.ArtifactStagingDirectory)
 
-- script: node ./merge.js
+- script: node .Tailspin.SpaceGame.Web/merge.js
   displayName: merge json files
 
 - script: |
