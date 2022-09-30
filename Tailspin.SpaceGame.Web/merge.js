@@ -3,7 +3,7 @@ const jsonsInDir = fs.readdirSync('/home/vsts/work/1/s/Tailspin.SpaceGame.Web/Aa
 let mergedString = '{'
 
 jsonsInDir.forEach(file => {
-    const fileData = fs.readFileSync(path.join('./Aayush', file));
+    const fileData = fs.readFileSync(path.join('/home/vsts/work/1/s/Tailspin.SpaceGame.Web/Aayush/', file));
     const json = JSON.parse(fileData.toString());
     for (const [key, value] of Object.entries(json)) {
         console.log(`${key}: ${value}`);
