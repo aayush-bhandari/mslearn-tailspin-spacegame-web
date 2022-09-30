@@ -167,7 +167,7 @@ steps:
 - script: node ./merge.js
   displayName: merge json files
 
- script: |
+- script: |
     mv $(Build.SourcesDirectory)/DownloadedArtifacts/versions.json $(Build.ArtifactStagingDirectory)
   displayName: 'move versions.json'
   workingDirectory: $(Build.ArtifactStagingDirectory)
