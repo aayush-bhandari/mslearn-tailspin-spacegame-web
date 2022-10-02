@@ -12,6 +12,7 @@ jsonsInDir.forEach(file => {
       }
 });
 mergedString = mergedString.slice(0,-1)+'}'
+console.log("mergedString: "+mergedString);
 const mergedJson = JSON.stringify(mergedString);
 
 // write file to disk
