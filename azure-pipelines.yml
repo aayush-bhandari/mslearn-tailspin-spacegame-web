@@ -173,7 +173,7 @@ steps:
       echo "filename is: $f"
       filename="${f##*/}"
       echo "${filename%.*}"
-      dateTime=$(date+%FT%T)
+      dateTime="$(date+%FT%T)"
       mv f $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/${filename%.*}_$(dateTime).json
     done
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/
