@@ -168,12 +168,13 @@ steps:
 
 - script: |
     ls
-    for f in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/*  $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/*/**
+    for f in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/*/**
     do
-    echo "filename is: $f"
-      filename = $(basename f .json)
-      dateTime = $(date+%FT%T)
-      mv f $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/$(filename)_$(dateTime).json
+      echo "filename is: $f"
+      filename="${f##*/}"
+      echo "${filename%.*}"
+      dateTime=$(date+%FT%T)
+      mv f $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/${filename%.*}_$(dateTime).json
     done
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/
 
