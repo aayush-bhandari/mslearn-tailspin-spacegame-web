@@ -175,7 +175,7 @@ steps:
       filename="${f##*/}"
       echo "${filename%.*}"
       mv $f $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/${filename%.*}_$i.json
-      i=`expr $i+1`
+      i=$((i+1))
       echo $i
     done
   workingDirectory: $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/
