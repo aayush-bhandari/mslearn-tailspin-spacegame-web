@@ -169,7 +169,7 @@ steps:
 - script: |
     ls
     i=0
-    for f in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/*/**
+    for f in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Aayush/**/*.json
     do
       echo "filename is: $f"
       filename="${f##*/}"

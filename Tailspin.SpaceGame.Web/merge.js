@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path')
 //const jsonDir = '/home/vsts/work/1/s/Tailspin.SpaceGame.Web/Aayush/'
-const jsonDir = '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/'
+const jsonDir = '/home/vsts/work/1/s/Tailspin.SpaceGame.Web/CDVersion/'
 const jsonsInDir = fs.readdirSync(jsonDir)
 let mergedString = '{'
 
@@ -18,7 +18,7 @@ console.log("mergedString: ", mergedString);
 //const mergedJson = JSON.stringify(mergedString, null, 4);
 
 // write file to disk
-fs.writeFile('/home/vsts/work/1/s//DownloadedArtifacts/versions.json', mergedString, 'utf8', (err) => {
+fs.writeFile('/home/vsts/work/1/s/DownloadedArtifacts/versions.json', mergedString, 'utf8', (err) => {
 
     if (err) {
         console.log(`Error writing file: ${err}`);
