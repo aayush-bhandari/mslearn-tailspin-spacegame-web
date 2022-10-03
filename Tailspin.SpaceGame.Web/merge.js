@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path')
-//const jsonsInDir = '/home/vsts/work/1/s/Tailspin.SpaceGame.Web/Aayush/'
-const jsonsInDir = '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/'
+//const jsonDir = '/home/vsts/work/1/s/Tailspin.SpaceGame.Web/Aayush/'
+const jsonDir = '$(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/CDVersion/'
+const jsonsInDir = fs.readdirSync(jsonDir)
 let mergedString = '{'
 
 jsonsInDir.forEach(file => {
