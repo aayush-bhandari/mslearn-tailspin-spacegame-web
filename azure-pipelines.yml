@@ -212,6 +212,6 @@ steps:
     targetFolder: '$(Build.ArtifactStagingDirectory)/'
     flattenFolders: true
     cleanTargetFolder: true
-  condition: eq(variables['BuildArtifactFolderExist'],'Yes')
+  condition: eq(variables['BuildArtifactFolderExist'],'No')
 
     
