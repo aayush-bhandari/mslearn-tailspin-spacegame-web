@@ -198,4 +198,20 @@ steps:
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: 'BuildArtifacts'
+
+- script: |
+      if [ -d "$(Build.SourcesDirectory)/DownloadedArtifacts" ]; then
+        echo "##vso[task.setvariable variable=BuildArtifactFolderExist]Yes"
+      fi
+    displayName: "Decision to publish artifact"
+    workingDirectory: $(Build.SourcesDirectory)
+
+- task: CopyFiles@2
+  inputs:
+    contents: '$(Build.SourcesDirectory)/DownloadedArtifacts/**/*'
+    targetFolder: '$(Build.ArtifactStagingDirectory)/'
+    flattenFolders: true
+    cleanTargetFolder: true
+  condition: eq(variables['BuildArtifactFolderExist'],'Yes')
+
     
