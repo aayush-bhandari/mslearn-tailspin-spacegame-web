@@ -203,8 +203,8 @@ steps:
       if [ -d "$(Build.SourcesDirectory)/DownloadedArtifacts" ]; then
         echo "##vso[task.setvariable variable=BuildArtifactFolderExist]Yes"
       fi
-    displayName: "Decision to publish artifact"
-    workingDirectory: $(Build.SourcesDirectory)
+  displayName: "Decision to publish artifact"
+  workingDirectory: $(Build.SourcesDirectory)
 
 - task: CopyFiles@2
   inputs:
