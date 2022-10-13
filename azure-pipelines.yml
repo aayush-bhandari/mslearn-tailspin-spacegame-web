@@ -12,14 +12,16 @@ variables:
 steps:
 
 - script: |
-    
+    mkdir -p $(Build.ArtifactStagingDirectory)/tmp/
+    mkdir -p $(Build.ArtifactStagingDirectory)/tmp-gzip/
     cd $(Build.SourcesDirectory)
-    rsync -a $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/artifacts/*/hashed-assets/ $(Build.ArtifactStagingDirectory)/artifacts/hashed-assets/
+    rsync -a $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/tmp/ $(Build.ArtifactStagingDirectory)/tmp/
+    rsync -a $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/tmp-gzip/ $(Build.ArtifactStagingDirectory)/tmp-gzip/
   displayName: 'clean staging dir'
   workingDirectory: $(Build.SourcesDirectory)
 
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)/artifacts
+    pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: 'buildartifacts'

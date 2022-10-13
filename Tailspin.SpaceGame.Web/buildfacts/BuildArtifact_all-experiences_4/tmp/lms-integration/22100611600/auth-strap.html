@@ -1,0 +1,187 @@
+<head data-config=""><meta http-equiv="Content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><link rel="icon" type="image/png" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-32x32-04b7d908.png"/><link rel="icon" type="image/png" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-16x16-aedbfeac.png"/><link rel="icon" type="image/png" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-96x96-6b9521ce.png"/><link rel="shortcut icon" type="image/x-icon" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-34ed16c5.ico"/><style>html,
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Web', sans-serif;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    html {
+      font-size: calc(1em * 0.625);
+    }
+
+    body {
+      font-size: 1.4rem;
+      overflow: hidden;
+    }
+
+    /** Enable antialiasing and font smoothing across supporting browsers for all elements */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }</style><style id="splash-styles">/** Remove outline, when focusing splash screen, because it is not necessary to inform user about focus on that element. */
+  div[id="splash-screen"] {
+    outline: none;
+  }
+
+
+  /** Below styles are dedicated for the pre-loading wheel (before React loads) */
+  .ui.loader {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    text-align: center;
+    z-index: 1000;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .ui.loader:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 500rem;
+    border: 0.2em solid rgba(0, 0, 0, 0.1);
+  }
+
+  .ui.loader:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    -webkit-animation: loader 0.6s linear;
+    animation: loader 0.6s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    border-radius: 500rem;
+    border-color: #767676 transparent transparent;
+    border-style: solid;
+    border-width: 0.2em;
+    -webkit-box-shadow: 0 0 0 1px transparent;
+    box-shadow: 0 0 0 1px transparent;
+  }
+
+  @-webkit-keyframes loader {
+    from {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes loader {
+    from {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  .ui.large.loader:after,
+  .ui.large.loader:before {
+    width: 3.42857143rem;
+    height: 3.42857143rem;
+    margin: 0 0 0 -1.71428571rem;
+  }
+
+  .ui.text.loader {
+    width: auto !important;
+    height: auto !important;
+    text-align: center;
+    font-style: normal;
+  }
+
+  .ui.loader.active,
+  .ui.loader.visible {
+    display: block;
+  }
+
+  .ui.loader.disabled,
+  .ui.loader.hidden {
+    display: none;
+  }
+
+  .ui.large.text.loader {
+    min-width: 3.42857143rem;
+    padding-top: 4.21428571rem;
+  }
+
+  @-webkit-keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+
+  .ui.loader.fadeOut {
+    -webkit-animation: fadeOut 500ms linear;
+    animation: fadeOut 500ms linear;
+  }</style><script nonce="[[random]]">window.__webpack_public_path__="[[staticsPath]]/teams-modular-packages/hashed-assets/";</script><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"></head><body><div style="display: none; height: inherit;" id="app"></div><div id="splash-screen" tabindex="-1" role="progressbar" aria-valuetext="Loading..." style="height: 100vh; overflow: hidden; -webkit-app-region: drag;"><div style="height: calc(100% - 4rem);
+                -webkit-user-select: none;
+                background-color: transparent;"><div class="ui large active text loader"><span id="splash-screen-label">Loading...</span></div></div></div><script id="initialize-bootstrap-data" nonce="[[random]]">// Wrap in an IIFE to prevent leaking to the global scope
+    (function() {
+      const setInitialWindowTitle = () => {
+        document.title = "Microsoft Teams";
+      };
+
+      const focusSplashScreen = function () {
+        let splashScreen = window.document.getElementById("splash-screen");
+        if (splashScreen) {
+          splashScreen.focus();
+        }
+      };
+      
+      function setInitialThemeColors() {
+        const theme = "" || "default";
+
+        const bodyStyle = document.body.style;
+        switch (theme) {
+          case "default":
+            bodyStyle.backgroundColor = "#F3F2F1";
+            bodyStyle.color = "#252424";
+            break;
+          case "dark":
+            bodyStyle.backgroundColor = "#201F1F";
+            bodyStyle.color = "#FFFFFF";
+            break;
+          case "contrast":
+            bodyStyle.backgroundColor = "#000";
+            bodyStyle.color = "#FFFFFF";
+            break;
+        }
+      }
+
+      setInitialThemeColors();
+      setInitialWindowTitle();
+      // focus splash screen in order to narrate loading message and title of the window
+      focusSplashScreen();
+    })();</script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/75916-46c03d26d587ddc7.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/11473-f6be2e8d60f3c795.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/75912-8faeddba47c09e78.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/7032-826998a98242e60f.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/10440-a55242d06647c88b.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/50575-3f5a5987d297d2c5.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/28468-b97860840c907134.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/92250-5dc03fe6a86dddd0.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/99326-6876e197213f65a7.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/48494-f8c1d3154d498ff3.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/96944-6ad4db8c485f1a13.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/65074-b5b2714423ffacc3.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/53425-f2ff852c7759ad52.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/49512-8ba12adb43a28c4c.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/83395-7d06b8fc0a36ef47.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/1050-51aa0bf2c942220b.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/28566-c6dacce8f5fcfe26.js"></script><script src="[[staticsPath]]/teams-modular-packages/hashed-assets/authStrap-0827cf89aac72a35.js"></script></body>

@@ -1,0 +1,135 @@
+<!doctype html><html lang="en"><head data-config=""><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="containerVer" content="22100611600"><script nonce="[[random]]">window.__webpack_public_path__="[[staticsPath]]/teams-modular-packages/hashed-assets/"</script><link rel="icon" type="image/png" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-32x32-04b7d908.png"><link rel="icon" type="image/png" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-16x16-aedbfeac.png"><link rel="icon" type="image/png" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-96x96-6b9521ce.png"><link rel="shortcut icon" type="image/x-icon" href="https://statics.teams.cdn.office.net/hashedassets/favicon/prod/favicon-34ed16c5.ico"><script nonce="[[random]]">function postExperienceStarted(e,n){window.desktop&&window.desktop.ipcRenderer&&window.desktop.ipcRenderer.sendToHost("experience-renderer-channel",{eventId:"experienceStarted",payload:{message:e,errorCode:n,errorDescription:n&&e}})}function experienceContainerPerfEntriesHandler(e,n){n&&"getExperienceContainerPerfEntries"===n.eventId&&window.desktop.ipcRenderer&&window.desktop.ipcRenderer.sendToHost("experience-renderer-channel",{eventId:"getExperienceContainerPerfEntries",payload:{data:window.performance.getEntriesByType("resource")}})}function postPerformanceEntriesOnRequest(){window.desktop&&window.desktop.ipcRenderer&&window.desktop.ipcRenderer.once&&window.desktop.ipcRenderer.once("experience-renderer-channel",experienceContainerPerfEntriesHandler)}function registerHandlersAndSetSource(e,n){const r=document.getElementById(e);r&&n&&(r.onload=function(){postExperienceStarted(e+" loaded")},r.onerror=function(){postExperienceStarted("Loading "+e+" failed. src="+n,-1)},r.src=n)}__webpack_nonce__="[[random]]",__VERSION__="22100611600",onePlayerLoaderFullStaticPath=window.__webpack_public_path__</script><script nonce="[[random]]">performance.mark("execute-index-html-script"),postExperienceStarted("start"),postPerformanceEntriesOnRequest()</script><style>html{position:fixed;top:0;right:0;bottom:0;left:0}</style><style>body,html{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Apple Color Emoji','Segoe UI Emoji','Segoe UI Web',sans-serif;width:100%;height:100%;padding:0;margin:0}html{font-size:calc(1em * .625)}body{font-size:1.4rem;overflow:hidden}*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}/*!*Remove hidden ADAL iframes borders as to not cause unnecessary vertical scrolling*!*/body>iframe[id^=adal]{border:0}</style><style id="splash-styles">div[id=splash-screen]{outline:0}.ui.loader{display:none;position:absolute;top:50%;left:50%;margin:0;text-align:center;z-index:1000;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.ui.loader:before{position:absolute;content:"";top:0;left:50%;width:100%;height:100%;border-radius:500rem;border:.2em solid rgba(0,0,0,.1)}.ui.loader:after{position:absolute;content:"";top:0;left:50%;width:100%;height:100%;-webkit-animation:loader .6s linear;animation:loader .6s linear;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;border-radius:500rem;border-color:#767676 transparent transparent;border-style:solid;border-width:.2em;-webkit-box-shadow:0 0 0 1px transparent;box-shadow:0 0 0 1px transparent}@-webkit-keyframes loader{from{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes loader{from{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.ui.large.loader:after,.ui.large.loader:before{width:3.42857143rem;height:3.42857143rem;margin:0 0 0 -1.71428571rem}.ui.text.loader{width:auto!important;height:auto!important;text-align:center;font-style:normal}.ui.loader.active,.ui.loader.visible{display:block}.ui.loader.disabled,.ui.loader.hidden{display:none}.ui.large.text.loader{min-width:3.42857143rem;padding-top:4.21428571rem}@-webkit-keyframes fadeOut{from{opacity:1}to{opacity:0}}@keyframes fadeOut{from{opacity:1}to{opacity:0}}.ui.loader.fadeOut{-webkit-animation:fadeOut .5s linear;animation:fadeOut .5s linear}</style></head><body id="main-window-body"><div style="height:inherit" id="app"></div><script id="initialize-bootstrap-data" nonce="[[random]]">// Wrap in an IIFE to prevent leaking to the global scope
+    (function() {
+      function setInitialThemeColors() {
+        const theme = "tfl-default" || "default";
+
+        const bodyStyle = document.body.style;
+        switch (theme) {
+          case "default":
+            bodyStyle.backgroundColor = "#F3F2F1";
+            bodyStyle.color = "#252424";
+            break;
+          case "dark":
+            bodyStyle.backgroundColor = "#201F1F";
+            bodyStyle.color = "#FFF";
+            break;
+          case "contrast":
+            bodyStyle.backgroundColor = "#000";
+            bodyStyle.color = "#FFF";
+            break;
+          case "defaultV2":
+          case "tfl-default":
+            bodyStyle.backgroundColor = "#F5F5F5";
+            bodyStyle.color = "#252424";
+            break;
+          case "darkV2":
+          case "tfl-dark":
+            bodyStyle.backgroundColor = "#1F1F1F";
+            bodyStyle.color = "#FFF";
+            break;
+        }
+      }
+
+      function setInitialWindowTitle() {
+        const isMainWindow = "true";
+
+        if (isMainWindow) {
+          document.title = "";
+        } else {
+          document.title = "New Window | Microsoft Teams";
+        }
+      }
+
+      function focusSplashScreen() {
+        const splashScreen = document.getElementById("splash-screen");
+        if (splashScreen) {
+          splashScreen.focus();
+        }
+      }
+      
+      /*
+       * Stub console error to prevent the console from leaking objects.
+       * See bug: 1911460.
+       */
+      function stubConsoleError() {
+        const originalConsoleError = console.error;
+
+        const sendConsoleErrorToHost = function (args) {
+          // Stop this after main is loaded successfully.
+          if (window.desktop && window.desktop.ipcRenderer) {
+            const errorDescription = message = args.toString();
+
+            // Notifies the host of the experienceStarted event
+            window.desktop.ipcRenderer.sendToHost("experience-renderer-channel", {
+              eventId: "experienceStarted",
+              payload: {
+                message,
+                errorCode: "consoleError",
+                errorDescription
+              }
+            });
+          }
+        }
+
+        const getConsoleErrorArgs = function (...args) {
+          const newArgs = [];
+          args.forEach(arg => {
+            if (!arg || typeof arg === 'string') {
+              newArgs.push(arg);
+            } else if (typeof arg.stack === 'string') {
+              newArgs.push(arg.stack);
+            } else if (typeof arg.message === 'string') {
+              newArgs.push(arg.message);
+            } else {
+              newArgs.push(JSON.stringify(arg));
+            }
+          });
+          return newArgs;
+        };
+
+        window.consoleErrorFn = function(...args) {
+          const newArgs = getConsoleErrorArgs(args);
+          originalConsoleError(...newArgs);
+        };
+
+        console.error = function(...args) {
+          const newArgs = getConsoleErrorArgs(args);
+          sendConsoleErrorToHost(newArgs);
+          originalConsoleError(...newArgs);
+      }
+    }
+
+      stubConsoleError();
+
+      /*
+       * Force unhandledrejections to errors to be serialized to prevent object leaks.
+       * See bug: 1911460.
+       */
+      const handleError = e => {
+        console.error((e && e.reason) || e);
+        e && e.preventDefault && e.preventDefault();
+      };
+      window.addEventListener('unhandledrejection', handleError);
+      window.addEventListener('error', handleError);
+      
+
+      const isScriptError = e => !!(
+        e.filename?.indexOf("46156") > -1 || 
+        e.filename?.indexOf("48494") > -1 ||
+        e.filename?.indexOf("92891") > -1 ||
+        e.filename?.indexOf("main") > -1
+        );
+
+      // Add handler for errors that occur during script loading phase.
+      window.handleGlobalWindowError = e => {
+        if (isScriptError(e)) {
+          postExperienceStarted("script error: " + e.message + ";" + "filename: " + e.filename, "scriptError");
+        }
+      };
+      window.addEventListener('error', window.handleGlobalWindowError);
+
+      setInitialThemeColors();
+      setInitialWindowTitle();
+      // focus splash screen in order to narrate loading message and title of the window
+      focusSplashScreen();
+    })();</script><script id="cache-chunks" nonce="[[random]]">window.__experienceWindowChunks__=JSON.parse('{"48494":"[[staticsPath]]/teams-modular-packages/hashed-assets/48494-73db2f361b23d718.js","92891":"[[staticsPath]]/teams-modular-packages/hashed-assets/92891-ca3f670ed6794e4f.js","98312":"[[staticsPath]]/teams-modular-packages/hashed-assets/98312-a16442828268fae7.js","main":"[[staticsPath]]/teams-modular-packages/hashed-assets/main-4080647607c99013.js","ckeditor":"[[staticsPath]]/teams-modular-packages/hashed-assets/ckeditor-5b0f64b410cc54ad.js","codemirror-styles":"[[staticsPath]]/teams-modular-packages/hashed-assets/codemirror-styles-e05a45108975f443.css","codemirror-bundle":"[[staticsPath]]/teams-modular-packages/hashed-assets/codemirror-bundle-6feb693335a52745.js"}')</script><script id="48494"></script><script nonce="[[random]]">registerHandlersAndSetSource("48494","[[staticsPath]]/teams-modular-packages/hashed-assets/48494-73db2f361b23d718.js")</script><script id="92891"></script><script nonce="[[random]]">registerHandlersAndSetSource("92891","[[staticsPath]]/teams-modular-packages/hashed-assets/92891-ca3f670ed6794e4f.js")</script><script id="98312"></script><script nonce="[[random]]">registerHandlersAndSetSource("98312","[[staticsPath]]/teams-modular-packages/hashed-assets/98312-a16442828268fae7.js")</script><script id="main"></script><script nonce="[[random]]">registerHandlersAndSetSource("main","[[staticsPath]]/teams-modular-packages/hashed-assets/main-4080647607c99013.js")</script><script nonce="[[random]]">window.proxyPostMessage=function(o,n,t){t&&o&&o.contentWindow?o.contentWindow.postMessage(n,t):console.log("either targetOrigin or target is invalid")}</script></body></html>
