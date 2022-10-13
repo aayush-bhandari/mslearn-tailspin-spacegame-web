@@ -26,5 +26,5 @@ steps:
 
 
 - publish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
-    artifact: BuildArtifacts
-    displayName: Publish Build artifacts
+  artifact: BuildArtifacts
+  displayName: Publish Build artifacts
