@@ -25,7 +25,6 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)
 
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
-    artifactName: 'BuildArtifacts'
+- publish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
+    artifact: BuildArtifacts
+    displayName: Publish Build artifacts
