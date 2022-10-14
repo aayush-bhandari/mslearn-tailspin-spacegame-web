@@ -16,8 +16,9 @@ steps:
     for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
     do
       dir=${dir%*/}
+      echo "${dir##*/}"
       mkdir -p $(Build.ArtifactStagingDirectory)/${dir##*/}
-      unison $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/${dir##*/}/ $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
+      cp -rf $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/${dir##*/}/* $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
     done
   displayName: 'clean staging dir'
   workingDirectory: $(Build.SourcesDirectory)
