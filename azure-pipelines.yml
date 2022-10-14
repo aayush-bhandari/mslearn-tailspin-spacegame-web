@@ -17,7 +17,7 @@ steps:
     do
       dir=${dir%*/}
       mkdir -p $(Build.ArtifactStagingDirectory)/${dir##*/}
-      rsync -a $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/${dir##*/}/ $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
+      unison $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/${dir##*/}/ $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
     done
   displayName: 'clean staging dir'
   workingDirectory: $(Build.SourcesDirectory)
