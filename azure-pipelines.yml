@@ -18,7 +18,8 @@ steps:
       mkdir -p $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}
     done
     cd $(Build.ArtifactStagingDirectory)/BuildArtifacts/
-    ls
+    echo "$(ls)"
+    
     for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
     do
       dir=${dir%*/}
