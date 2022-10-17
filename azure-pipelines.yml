@@ -42,4 +42,4 @@ steps:
   - publish: $(Build.ArtifactStagingDirectory)/SBOM
     artifact: SBOM 1
     displayName: Publish SBOM
-    condition: and(eq(variables['SBOMPublished'], true))
+    condition: eq(variables['SBOMPublished'], true)
