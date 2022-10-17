@@ -27,13 +27,13 @@ steps:
     displayName: Publish Build artifacts
 
   - script: |
-      if [ $(find $(Build.SourcesDirectory)/DownloadedArtifacts -type d -name "SBOM*" | wc -l ) != "0" ]; then
+      if [ $(find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts -type d -name "SBOM*" | wc -l ) != "0" ]; then
         "##vso[task.setvariable variable=SBOMPublished]true"
         echo "1"
         mkdir -p $(Build.ArtifactStagingDirectory)/SBOM
         ls
         echo "2"
-        mv $(Build.SourcesDirectory)/Downloaded*/** $(Build.ArtifactStagingDirectory)/SBOM
+        mv $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Downloaded*/** $(Build.ArtifactStagingDirectory)/SBOM
         echo "3"
       fi
     displayName: "move SBOM folders"
