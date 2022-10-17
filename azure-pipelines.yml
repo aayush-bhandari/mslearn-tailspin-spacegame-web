@@ -28,10 +28,14 @@ steps:
 
   - script: |
       DIR = "$(Build.SourcesDirectory)/Downloaded*"
+      echo "$DIR"
       if [ -d "$DIR" ]; then
+        echo "1"
         mkdir -p $(Build.ArtifactStagingDirectory)/SBOM
+        ls
+        echo "2"
         mv $(Build.SourcesDirectory)/Downloaded*/** $(Build.ArtifactStagingDirectory)/SBOM
-        echo "inside if"
+        echo "3"
       fi
     displayName: "move SBOM folders"
     workingDirectory: $(Build.ArtifactStagingDirectory)
