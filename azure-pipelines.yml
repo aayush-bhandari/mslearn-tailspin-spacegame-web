@@ -28,6 +28,7 @@ steps:
 
   - script: |
       DIR = "$(Build.SourcesDirectory)/Downloaded*"
+      echo "hello world"
       echo "$DIR"
       if [ -d "$DIR" ]; then
         echo "1"
