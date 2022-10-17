@@ -28,7 +28,7 @@ steps:
 
   - script: |
       if [ $(find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts -type d -name "SBOM*" | wc -l ) != "0" ]; then
-        "##vso[task.setvariable variable=SBOMPublished]true"
+        echo "##vso[task.setvariable variable=SBOMPublished]true"
         echo "1"
         mkdir -p $(Build.ArtifactStagingDirectory)/SBOM
         ls
