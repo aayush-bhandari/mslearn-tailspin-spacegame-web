@@ -1,29 +1,41 @@
 trigger:
-- '*'
+  - "*"
 
 pool:
-  vmImage: 'ubuntu-18.04'
+  vmImage: "ubuntu-18.04"
   demands:
-  - npm
+    - npm
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: "Release"
 
 steps:
+  - script: |
 
-- script: |
+      for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
+      do
+        echo "hello ${dir##*/}"
+        mkdir -p $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
+      done
 
-    for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
-    do
-      echo "hello ${dir##*/}"
-      mkdir -p $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
-    done
-    
-    cp -rf $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/* $(Build.ArtifactStagingDirectory)/BuildArtifacts/
-  displayName: 'clean staging dir'
-  workingDirectory: $(Build.SourcesDirectory)
+      cp -rf $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/* $(Build.ArtifactStagingDirectory)/BuildArtifacts/
+    displayName: "clean staging dir"
+    workingDirectory: $(Build.SourcesDirectory)
 
+  - publish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
+    artifact: BuildArtifacts
+    displayName: Publish Build artifacts
 
-- publish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
-  artifact: BuildArtifacts
-  displayName: Publish Build artifacts
+  - script: |
+      DIR = "$(Build.SourcesDirectory)/Downloaded*"
+      if [ -d "$DIR" ]; then
+        mkdir -p $(Build.ArtifactStagingDirectory)/SBOM
+        mv $(Build.SourcesDirectory)/Downloaded*/** $(Build.ArtifactStagingDirectory)/SBOM
+        echo "inside if"
+      fi
+    displayName: "move SBOM folders"
+    workingDirectory: $(Build.ArtifactStagingDirectory)
+
+  - publish: $(Build.ArtifactStagingDirectory)/SBOM
+    artifact: SBOM 1
+    displayName: Publish SBOM
