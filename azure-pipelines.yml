@@ -10,17 +10,61 @@ variables:
   buildConfiguration: "Release"
 
 steps:
-  - script: |
 
-      for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
-      do
-        echo "hello ${dir##*/}"
-        mkdir -p $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
-      done
+  - stage: build_multi_window
+    displayName: Build Multi-Window
+    dependsOn: []
+    jobs:
+      # Build Multi-Window experience
+      - job: build_multi_window
+        displayName: Build Multi-Window
+        container: teams-client-tmp
+        timeoutInMinutes: 90
+        steps:
+          - task: UseDotNet@2
+            displayName: 'Use .NET SDK 6.x'
+            inputs:
+              packageType: sdk
+              version: '6.x'
 
-      cp -rf $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/* $(Build.ArtifactStagingDirectory)/BuildArtifacts/
-    displayName: "clean staging dir"
-    workingDirectory: $(Build.SourcesDirectory)
+          - task: Npm@1
+            displayName: 'Run npm install'
+            inputs:
+              verbose: false
+
+  - stage: dependent_job
+    displayName: Dependent Job
+    dependsOn: []
+    jobs:
+      # Build Multi-Window experience
+      - job: dependent_job
+        displayName: dependent_job
+        container: teams-client-tmp
+        timeoutInMinutes: 90
+        steps:
+          - task: UseDotNet@2
+            displayName: 'Use .NET SDK 6.x'
+            inputs:
+              packageType: sdk
+              version: '6.x'
+
+          - task: Npm@1
+            displayName: 'Run npm install'
+            inputs:
+              verbose: false
+          
+          - script: |
+            for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
+            do
+              echo "hello ${dir##*/}"
+              mkdir -p $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
+            done
+
+            cp -rf $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/* $(Build.ArtifactStagingDirectory)/BuildArtifacts/
+          displayName: "clean staging dir"
+          workingDirectory: $(Build.SourcesDirectory)
+
+  
 
   - publish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
     artifact: BuildArtifacts

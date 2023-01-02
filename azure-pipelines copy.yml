@@ -1,0 +1,45 @@
+trigger:
+  - "*"
+
+pool:
+  vmImage: "ubuntu-18.04"
+  demands:
+    - npm
+
+variables:
+  buildConfiguration: "Release"
+
+steps:
+  - script: |
+
+      for dir in $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/*/
+      do
+        echo "hello ${dir##*/}"
+        mkdir -p $(Build.ArtifactStagingDirectory)/BuildArtifacts/${dir##*/}/
+      done
+
+      cp -rf $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/buildfacts/BuildArtifact*/* $(Build.ArtifactStagingDirectory)/BuildArtifacts/
+    displayName: "clean staging dir"
+    workingDirectory: $(Build.SourcesDirectory)
+
+  - publish: $(Build.ArtifactStagingDirectory)/BuildArtifacts
+    artifact: BuildArtifacts
+    displayName: Publish Build artifacts
+
+  - script: |
+      if [ $(find $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/DownloadedArtifacts -type d -name "SBOM*" | wc -l ) != "0" ]; then
+        echo "##vso[task.setvariable variable=SBOMPublished]true"
+        echo "1"
+        mkdir -p $(Build.ArtifactStagingDirectory)/SBOM
+        ls
+        echo "2"
+        mv $(Build.SourcesDirectory)/Tailspin.SpaceGame.Web/Downloaded*/** $(Build.ArtifactStagingDirectory)/SBOM
+        echo "3"
+      fi
+    displayName: "move SBOM folders"
+    workingDirectory: $(Build.ArtifactStagingDirectory)
+
+  - publish: $(Build.ArtifactStagingDirectory)/SBOM
+    artifact: SBOM 1
+    displayName: Publish SBOM
+    condition: eq(variables['SBOMPublished'], true)
