@@ -20,7 +20,6 @@ export class RestCalls{
         }
       }
       
-
     async run(){
         this.getBuildTimeline();
     }
